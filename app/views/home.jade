@@ -51,8 +51,9 @@ include ../shared/layout
                         i.mdi-social-person-add
                       a(href='#' ng-click='registerTeam(team_id)')
                         i.mdi-content-send
-        a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger(href='#create-team-modal')
-            i.mdi-content-add
+  .fixed-action-btn(style='bottom: 65px; right: 40px;' href='#create-team-modal')
+    a.btn-floating.btn-large.red
+      i.mdi-content-add
 include modals/create-team
 
 
