@@ -1,5 +1,5 @@
 angular.module('olympics.services')
-  .factory('Authentication', ['$timeout', '$cookies', '$http', '$rootScope', 'Refs', '$location'
+  .factory('Authentication', ['$timeout', '$cookies', '$http', '$rootScope', 'Refs', '$location',
     function($timeout, $cookies, $http, $rootScope, Refs,$location) {
       return {
         login: function(cb) {

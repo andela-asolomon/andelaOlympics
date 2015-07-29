@@ -8,10 +8,12 @@ require('./services/refs.js');
 require('./services/competitions.js');
 require('./services/user.js');
 require('./services/http.requests.js');
-
+require('./services/http.requests.js');
+require('./services/dashboardServices.js');
 
 // loading controller
 require('./controllers/mainCtrl.js');
+require('./controllers/dashboardCntrl.js')
 
 window.Olympics = angular.module('Olympics', [
 	'ngRoute',
@@ -28,6 +30,10 @@ Olympics.config(['$routeProvider','$locationProvider',
 			.when('/', {
 				templateUrl: 'views/home.html',
 				controller: 'mainCtrl'
+			})
+			.when('/dashboard', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'dashboardCntrl'
 			})
 			.otherwise({
 				templateUrl: '404.html'
