@@ -1,16 +1,39 @@
 angular.module('olympics.controllers')
-.controller('mainCtrl', ['Authentication', '$scope', '$rootScope', '$location', '$timeout', '$http', 'Competitions', 'UserDetails', 'Requests',
-	function(Authentication, $scope, $rootScope, $location, $timeout, $http, Competitions, UserDetails, Requests) {
+.controller('mainCtrl', ['Authentication', '$route','$scope', '$rootScope', '$location', '$timeout', '$http', 'Competitions', 'UserDetails', 'Requests','TeamCreators',//'getWinners',
+	function(Authentication, $route, $scope, $rootScope, $location, $timeout, $http, Competitions, UserDetails, Requests,TeamCreators){//getWinners) {
 
 		$scope.login = function() {
 			Authentication.login();
+			var creators=TeamCreators.getCreators();
+			//console.log(creators);
 		};
-
+		$rootScope.checkCreator = function(){
+			console.log($rootScope.team_id);
+			//$rootScope.current_user = $rootScope.currentUser.uid;
+			$rootScope.current_user= "google:101661651649346650647" //testing purposes
+			var _ =require('lodash');
+			console.log($rootScope.creators)
+			_.forEach($rootScope.creators,function(i){
+				if(_.include(i.creators,$rootScope.current_user)){
+					console.log("yes, current user created the team");
+					$rootScope.showLinkBox = true;
+					$route.reload();
+				}
+			})
+		}
+		$scope.link={link:""};
+		$rootScope.updateLink =function(){
+			console.log('posting link to database');
+			console.log($scope.link);
+		}
+		
 		$scope.logout = function() {
+			//console.log($rootScope.creators) testing
 			Authentication.logout();
 			
-      Materialize.toast('You have successfully logged out!', 5000, 'teal accent-4');
+      		Materialize.toast('You have successfully logged out!', 5000, 'teal accent-4');
 		};
+
 
 		$scope.init = function() {
 			var competitions = Competitions.botOlympics();
@@ -22,14 +45,31 @@ angular.module('olympics.controllers')
 				// 		team.members[i] = profile;
 				// 	}
 				// });
-				$scope.competition = data;
+				
+				$rootScope.competition = data;
 			});
+			// var _ =require('lodash');
+			// //$scope.using_now = $rootScope.currentUser.uid;
+			// var all_competitions = getWinners.competitionGetter();
+			// all_competitions.$loaded().then(function(data) {
+			// 	$scope.allCompetitions = data;
+			// 	_.forEach($scope.allCompetitions,function(i){
+			// 		_.forEach(i.teams,function(j){
+			// 			console.log(j);
+			// 		})
+			// 	})
+			// })
 		};
 
-
+		
+		$scope.postLink =function(){
+			var url = '/competitions/Bot Olympics/postlink';
+			Requests.postlink(url, $scope.team, $scope.init);
+		}
 		$scope.createTeam = function() {
 			var url = '/competitions/Bot Olympics/register';
 			$scope.team.team_id = $rootScope.currentUser.uid;
+			//var whatCompetition = {comp_name:}
 			Requests.createTeam(url, $scope.team, $scope.init);
 		};
 

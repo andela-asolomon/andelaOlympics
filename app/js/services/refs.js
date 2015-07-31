@@ -1,6 +1,6 @@
 angular.module('olympics.services')
-  .factory('Refs', ['$cookies', '$firebase',
-    function($cookies, $firebase) {
+  .factory('Refs', ['$cookies', '$firebase', //'$scope',
+    function($cookies, $firebase){
       var rootRef = new Firebase($cookies.rootRef || 'YOUR_FIREBASE_URL');     
       
       // define every standard ref used application wide
@@ -9,6 +9,9 @@ angular.module('olympics.services')
         users: rootRef.child('users'),
         competitions: rootRef.child('competitions'),
         bot_olympics: rootRef.child('competitions').child('Bot Olympics'),
+        
       };
+
+
     }
   ]);

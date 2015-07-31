@@ -1,6 +1,7 @@
 angular.module('olympics.services')
   .factory('Authentication', ['$timeout', '$cookies', '$http', '$rootScope', 'Refs', '$location',
-    function($timeout, $cookies, $http, $rootScope, Refs,$location) {
+      function($timeout, $cookies, $http, $rootScope, Refs,$location ) {
+
       return {
         login: function(cb) {
           var self = this, options = { remember: true, scope: "email" };
@@ -22,6 +23,8 @@ angular.module('olympics.services')
                   self.user = data;
                 });
                 Materialize.toast('You have successfully logged in!', 5000, 'teal accent-4');
+                console.log("verify creator");
+                $rootScope.checkCreator();
                 return;
               })
               .error(function(error) {
@@ -29,7 +32,9 @@ angular.module('olympics.services')
               });
 
             // console.log(authData);
+            //console.log($rootScope.creators);
           }, options);
+          
         },
 
         logout: function() {

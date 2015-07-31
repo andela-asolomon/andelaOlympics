@@ -114,10 +114,7 @@
     "pg": "4.x",
     "protractor": "^1.5.0",
     "proxyquire": "^1.0.1",
-<<<<<<< HEAD
     "request": "^2.60.0",
-=======
->>>>>>> a45b5f25338c0d4b82deb5518fd27cafd14fb1df
     "selenium-server-standalone-jar": "2.44.0",
     "stringify": "^2.2.0",
     "supertest": "latest",

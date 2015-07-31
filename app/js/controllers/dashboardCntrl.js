@@ -5,8 +5,8 @@ app.controller('dashboardCntrl', ['Authentication', '$scope', '$rootScope', '$lo
 	function(Authentication, $scope, $rootScope, $location, $timeout, $http, Competitions, UserDetails, Requests,getWinners) {
 
 		//$scope.userName=$rootScope.currentUser.name;
-		$scope.userName="Garuba Olatunde" //for testing purpose
-		$scope.userphoto=$rootScope.currentUser.picture;
+		$scope.userName="Ladi Adenusi" //for testing purpose
+		$scope.userphoto= $rootScope.currentUser.picture;
 		$scope.init = function() {
 			var competitions = Competitions.botOlympics();
 			competitions.$loaded().then(function(data) {

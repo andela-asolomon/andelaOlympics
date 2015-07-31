@@ -25,6 +25,7 @@ include ../shared/layout
                   i.mdi-navigation-close.right
                 p
                   | {{team.description}}
+                hr
                 .card-action.right-align(ng-if='currentUser')
                   a.waves-effect.waves-light.waves-ripple(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
                     i.mdi-social-person-add.small

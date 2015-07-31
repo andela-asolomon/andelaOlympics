@@ -10,6 +10,7 @@ require('./services/user.js');
 require('./services/http.requests.js');
 require('./services/http.requests.js');
 require('./services/dashboardServices.js');
+require('./services/mainCtrlService.js');
 
 // loading controller
 require('./controllers/mainCtrl.js');

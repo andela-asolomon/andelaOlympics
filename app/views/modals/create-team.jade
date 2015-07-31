@@ -13,5 +13,10 @@
             i.mdi-editor-mode-edit.prefix
             textarea#icon_prefix2.materialize-textarea(ng-model='team.description')
             label(for='icon_prefix2') Tell us something cool about your team and what you're building(in 150 characters).
+        .row
+          .input-field.col.s12.m6.l6center
+            i.mdi-action-account-circle.prefix
+            input#icon_prefix.validate(type='text'  ng-model='team.link')
+            label(for='icon_prefix') Youtube link
   .modal-footer
     a.modal-action.modal-close.waves-effect.waves-green.btn(href='#' ng-click='createTeam()') Create

@@ -43,7 +43,6 @@ include ../shared/layout
             li.col.s12.m6.l2 Best UX
             li.col.s12.m6.l2 Staffs' Favorite
             li.col.s12.m12.l4 Overall Winner
-
     .content.teams.row
         h1 TEAMS
         .row
@@ -71,6 +70,14 @@ include ../shared/layout
                     i.mdi-navigation-close.right
                   p
                     | {{team.description}}
+                  p
+                    | {{team.link}}
+                  //ng-if could also have this (current_user.uid === team_id) i.e from checkCreator function in 
+                  //mainCtrl.js
+                  div(class='input-field' ng-if='current_user === team_id')
+                    .row
+                      input(type="text" size='20' ng-model='link.link')
+                      button(class="btn waves-effect waves-light" ng-click='updateLink()') Update link
                   .card-action.right-align(ng-if='currentUser')
                     a.waves-effect.waves-light.waves-ripple(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
                       i.mdi-social-person-add.small

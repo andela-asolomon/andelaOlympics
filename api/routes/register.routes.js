@@ -164,6 +164,20 @@ module.exports = function(app, config) {
     });
   });
 
+
+
+
+
+
+
+  // app.route('/competitions/Bot Olympics/postlink'){
+  //   competition.child(req.params.competitionName).child('teams').child()
+  // }
+
+
+
+
+  
   app.route('/competitions/:competitionName/register').put(function(req, res) {
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       team_id_available = snap.hasChild(req.body.team_id);
