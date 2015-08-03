@@ -163,21 +163,15 @@ module.exports = function(app, config) {
       }
     });
   });
-
-
-
-
-
-
-
-  // app.route('/competitions/Bot Olympics/postlink'){
-  //   competition.child(req.params.competitionName).child('teams').child()
-  // }
-
-
-
-
   
+  app.route('/competitions/:competitionName/postlink').put(function(req, res) {
+    console.log('got to posting link')
+    console.log(req.body.link);
+    competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('link').set(
+      req.body.link);
+      res.send("Link Updated")
+  });
+
   app.route('/competitions/:competitionName/register').put(function(req, res) {
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       team_id_available = snap.hasChild(req.body.team_id);

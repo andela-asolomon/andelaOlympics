@@ -53,7 +53,27 @@ angular.module('olympics.services')
     				return err;
     			});
     		},
-        
+        //////////////////////////
+        postlink: function(url, object, callback){
+          console.log("post link in http.requests")
+          console.log(url);
+          console.log(object);
+          $http.put(url, object)
+          .success(function(data){
+            if(data.error){
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
+              return data.error;
+            }
+            console.log(data);
+            callback();
+            Materialize.toast('Link Posted', 5000, 'teal accent-4');
+          })
+          .error(function(err){
+            Materialize.toast('ERROR posting link' , 5000, 'red darken-3');
+            return err;
+          });
+        },
+        /////////////////////////
         acceptMember: function(url, callback) {
           $http.put(url)
           .success(function(data) {

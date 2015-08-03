@@ -40,6 +40,7 @@ angular.module('olympics.services')
         logout: function() {
           Refs.root.unauth();
           $rootScope.currentUser = null;
+          $rootScope.current_user= null;
         },
 
         auth: function() {

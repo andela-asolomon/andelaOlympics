@@ -21,7 +21,7 @@
                 img(ng-src='{{currentUser.picture}}')
                 span 
                     {{currentUser.name}}
-                    a(href='/dashboard') Dashboard
+                    a(href='/dashboard', ng-if='currentUser') Dashboard
 
 
             a.btn-login(ng-if='!currentUser' ng-click='login()')

@@ -21,10 +21,11 @@ angular.module('olympics.controllers')
 				}
 			})
 		}
-		$scope.link={link:""};
-		$rootScope.updateLink =function(){
+		$scope.link = { competition:"Bot Olympics", link:"" };
+		$rootScope.updateLink = function() {
 			console.log('posting link to database');
 			console.log($scope.link);
+			$scope.postLink();
 		}
 		
 		$scope.logout = function() {
@@ -32,6 +33,7 @@ angular.module('olympics.controllers')
 			Authentication.logout();
 			
       		Materialize.toast('You have successfully logged out!', 5000, 'teal accent-4');
+      		$route.reload();
 		};
 
 
@@ -62,9 +64,11 @@ angular.module('olympics.controllers')
 		};
 
 		
-		$scope.postLink =function(){
+		$scope.postLink = function() {
+			$scope.link.team_id = $rootScope.current_user;
+			console.log("posting link,frontend");
 			var url = '/competitions/Bot Olympics/postlink';
-			Requests.postlink(url, $scope.team, $scope.init);
+			Requests.postlink(url, $scope.link, $scope.init);
 		}
 		$scope.createTeam = function() {
 			var url = '/competitions/Bot Olympics/register';
