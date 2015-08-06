@@ -1,0 +1,155 @@
+include ../shared/layout
+.overlay(ng-show='!show')
+  .content.comp.row
+      h1 NO PREVIOUS COMPETITIONS YET
+      h2.center
+        a(href='/') 
+          u.href
+            |View Ongoing competition
+.overlay(ng-show='show')
+  div(ng-repeat='competition_information in allcompetition_information' ng-show='show')
+    .content.comp.row
+      h1 {{competition_information.name}}
+      .row
+        h2 Description:
+        .what.col.s12.m12.l9
+          span {{competition_information.details.what.description}}
+      .row.clear
+        .col.s12.m12.l12
+          .card.blue-grey.darken-1
+            .card-title Competition Details
+            .card-content-compView.white-text
+              span.center
+                p
+                  |HOW
+                span(ng-repeat='instruction in competition.details.how.instructions')
+                  p {{instruction}}
+                hr
+              span.center
+                p
+                  |WHO?
+                span
+                  p
+                    {{competition.details.who.description}}
+                hr
+              span.center
+                p
+                  |HELD?
+                span.center
+                  p
+                    | {{competition_information.details.when.startDate}}
+                    | -
+                    | {{competition_information.details.when.endDate}}
+                hr
+              span.center
+                p
+                  |RULES
+                span(ng-repeat='rule in competition_information.details.how.rules')
+                  p {{rule}}
+     //- .row.clear
+      //-   .col.s12.m6.l3
+      //-     .card.blue-grey.darken-1
+      //-       .card-title HOW?
+      //-       .card-content.white-text
+      //-           span(ng-repeat='instruction in competition.details.how.instructions')
+      //-             p {{instruction}}
+      //-   .col.s12.m6.l3
+      //-     .card.blue-grey.darken-1
+      //-       .card-title WHO?
+      //-       .card-content.white-text
+      //-         span
+      //-           p
+      //-             {{competition.details.who.description}}
+      //-   .col.s12.m6.l3
+      //-     .card.blue-grey.darken-1
+      //-       .card-title HELD?
+      //-       .card-content.white-text
+      //-         span.center
+      //-           p
+      //-             | {{competition_information.details.when.startDate}}
+      //-             | -
+      //-             | {{competition_information.details.when.endDate}}
+      //-   .col.s12.m6.l3
+      //-     .card.blue-grey.darken-1
+      //-       .card-title RULES
+      //-       .card-content.white-text
+      //-           span(ng-repeat='rule in competition_information.details.how.rules')
+      //-             p {{rule}}
+
+      //-   .categories.col.s12.m12.l12
+      //-     .title.col.s12
+      //-       span Winning Categories
+      //-     ul.category.col.s12.blue-grey.darken-1
+      //-       li.col.s12.m6.l2 Most Innovative
+      //-       li.col.s12.m6.l2 Most Useful
+      //-       li.col.s12.m6.l2 Best UX
+      //-       li.col.s12.m6.l2 Staffs' Favorite
+      //-       li.col.s12.m12.l4 Overall Winner
+    .content.teams.row
+        h1 TEAMS
+        .row
+          .col.s12
+            .team.col.s12.m6.l4(ng-repeat='(team_id, team) in competition_information.teams')
+              .card.team-card.trans
+                .team-list
+                  ul.team-member
+                    li.collection-item.avatar.row(ng-repeat='(member_id, member) in team.members')
+                      .user-profile.col.s10
+                        img.circle(ng-src='{{member.picture}}')
+                        span.title {{member.name}}
+                      .actions.col.s2(ng-if='(currentUser.uid === team_id) && !member.accepted')
+                        a.green-text.text-accent-2(href='#' ng-click="acceptMember(member_id)")
+                          i.mdi-action-done.accept
+                        a.red-text.text-accent-2(href='#' ng-click="declineMember(member_id)")
+                          i.mdi-action-highlight-remove.decline
+                .card-content
+                  span.card-title.activator.grey-text.text-darken-4
+                    | {{team.name}}
+                    span(ng-if='team.winner')
+                      img(ng-src='../../img/trophy.jpg',
+                      style='height:30px;width:30px')
+                    i.mdi-navigation-more-vert.right
+
+                .card-reveal
+                  span.card-title.grey-text.text-darken-4
+                    | {{team.name}}
+                    i.mdi-navigation-close.right
+                  p
+                    | {{team.description}}
+                  p
+
+                    a(href='{{team.link}}') {{team.link}}
+                  hr 
+                  p(ng-repeat='winner in team.winner')
+                    | Winners : {{winner}} 
+  
+                  //ng-if could also have this (current_user.uid === team_id) i.e from checkCreator function in 
+                  //mainCtrl.js
+                  //div(class='input-field' ng-if='current_user === team_id')
+                    p
+                      | Paste YouTube link
+                    .row
+                      input(type="text" size='20' ng-model='link.link')
+                      button(class="btn waves-effect waves-light" ng-click='updateLink(current_user)') Update link
+                  //div
+                    .card-action.right-align(ng-if='currentUser')
+                      a.waves-effect.waves-light.waves-ripple(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
+                        i.mdi-social-person-add.small
+                      a.waves-effect.waves-light.waves-ripple(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')
+                        i.mdi-content-send.small
+       // a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger.btn.tooltipped(href='#create-team-modal' data-tooltip="Create a Team" data-position="right" data-delay="50")
+            i.mdi-content-add
+//include modals/create-team
+
+
+script(type='text/javascript').
+  $(function() {
+    $('.modal-trigger').leanModal();
+    $('.teams-link').on('click', function() {
+      $('.overlay').scrollTo('.content.teams', 800);
+    });
+    $('.comp-details').on('click', function() {
+      $('.overlay').scrollTo('.content.comp', 800);
+    });
+    $('.tooltipped').tooltip({"delay": 50});
+  });

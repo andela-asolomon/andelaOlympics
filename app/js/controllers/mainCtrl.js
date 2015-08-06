@@ -1,7 +1,7 @@
 angular.module('olympics.controllers')
 .controller('mainCtrl', ['Authentication', '$route','$scope', '$rootScope', '$location', '$timeout', '$http', 'Competitions', 'UserDetails', 'Requests','TeamCreators',//'getWinners',
 	function(Authentication, $route, $scope, $rootScope, $location, $timeout, $http, Competitions, UserDetails, Requests,TeamCreators){//getWinners) {
-
+		//console.log("MAIN CONTROL");
 		$scope.login = function() {
 			Authentication.login();
 			var creators=TeamCreators.getCreators();
@@ -38,7 +38,8 @@ angular.module('olympics.controllers')
 
 
 		$scope.init = function() {
-			var competitions = Competitions.botOlympics();
+			//console.log("in init function,maincntrol");
+			var competitions = Competitions.getCompetition();
 			competitions.$loaded().then(function(data) {
 				// _.forEach(data.teams, function(team, team_id) {
 				// 	var members = [];

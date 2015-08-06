@@ -11,11 +11,54 @@
         li(ng-class='{active: selected === 2, inactive: !selected}')
             a.teams-link.tooltipped(href='#' ng-click='selected = 2' data-tooltip="All Teams" data-position="right")
                 i.mdi-social-people.small
+    ul
+        a.side-nav-view.teams-link.tooltipped(href='/competitions/previous'  data-tooltip="View Previous Competitions" data-position="right")
+            .container
+                |previous
+                |competition
+    
 .top-nav.row
     .nav-container
         .app-name.col.s11.m3.l3.valign-wrapper
             h3.uppercase.valign.center-align 
               a(href='/' style='color:white;font-size:30px') Andela Olympics
+        
+          //a.href.teams-link.tooltipped(href='/competitions/previous'  )
+            .container(style='height:20px;width:20px')
+                |View
+                |previous
+                |competition
+            
+         
+
+        //ul#dropdown1.dropdown-content
+              li
+                a(href='#!') one
+              li
+                a(href='#!') two
+              li.divider
+              li
+                a(href='#!') three
+        //.nav-wrapper
+            a.brand-logo(href='#!') Logo
+            ul.hide-on-med-and-down
+              li
+                a(href='sass.html') Sass
+              li
+                a(href='badges.html') Components
+              // Dropdown Trigger
+              li
+                a.dropdown-button(href='#!', data-activates='dropdown1')
+                  | Dropdown
+                  i.mdi-social-people.small
+        //li
+            a.dropdown-button(href='#!' data-activates='dropdown1')
+                | Competitions
+                ul#dropdown1.dropdown-content(ng-repeat="competition in competitions_list")
+                    li
+                        a(href='/{{competition}}') 
+                            |{{competition}}
+                //i.material-icons.right arrow_drop_down
         .welcome.hide-on-small-only
             a.profile-details(ng-if='currentUser')
                 img(ng-src='{{currentUser.picture}}')

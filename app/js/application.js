@@ -15,6 +15,7 @@ require('./services/mainCtrlService.js');
 // loading controller
 require('./controllers/mainCtrl.js');
 require('./controllers/dashboardCntrl.js')
+require('./controllers/prevCompetition.js')
 
 window.Olympics = angular.module('Olympics', [
 	'ngRoute',
@@ -32,6 +33,10 @@ Olympics.config(['$routeProvider','$locationProvider',
 				templateUrl: 'views/home.html',
 				controller: 'mainCtrl'
 			})
+			.when('/competitions/previous',{
+        		templateUrl: '/views/competitionView.html',
+        		controller: 'prevCompetition'
+     		})
 			.when('/dashboard', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'dashboardCntrl'
